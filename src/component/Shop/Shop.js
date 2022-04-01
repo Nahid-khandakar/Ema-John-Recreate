@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useProducts from '../../hooks/useProducts';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
@@ -6,17 +7,21 @@ import './Shop.css'
 
 const Shop = () => {
 
-    const [products, setProducts] = useState([])
+    //for this products use custom hook useProducts.js 
+    // const [products, setProducts] = useState([])
+
+    const [products, setProducts] = useProducts()
     const [cart, setCart] = useState([])
 
     //console.log(cart)
     //console.log(products)
 
-    useEffect(() => {
-        fetch('products.json')
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
+    //use custom hook useProducts.js
+    // useEffect(() => {
+    //     fetch('products.json')
+    //         .then(res => res.json())
+    //         .then(data => setProducts(data))
+    // }, [])
 
 
     //this use effect for load data from local storage
@@ -53,8 +58,6 @@ const Shop = () => {
             exists.quantity = exists.quantity + 1
             newCart = [...rest, exists]
         }
-
-
 
         setCart(newCart)
 
