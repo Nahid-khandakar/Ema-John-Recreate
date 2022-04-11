@@ -8,7 +8,7 @@ import ReviewItem from '../ReviewItem/ReviewItem';
 import './Order.css'
 
 const Orders = () => {
-    const [products, setProducts] = useProducts()
+    const [products] = useProducts()
     const [cart, setCart] = useCart(products)
 
     //click from reviewitem.js button 
@@ -33,7 +33,7 @@ const Orders = () => {
 
             <div className="cart-container">
                 <Cart cart={cart}>
-                    <Link to='/inventory'>
+                    <Link to='/shipment'>
                         <button>Proceed CheckOut</button>
                     </Link>
                 </Cart>
