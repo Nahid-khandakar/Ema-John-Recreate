@@ -1,45 +1,39 @@
 import React, { useState } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 import auth from '../../firebase.init';
 import './Shipment.css'
 
 const Shipment = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [address, setAddress] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
     const [error, setError] = useState('')
-    const navigate = useNavigate()
 
 
-    const [createUserWithEmailAndPassword, user] = useCreateUserWithEmailAndPassword(auth);
+    const [user] = useAuthState(auth);
+
 
     const handleNameBlur = (event) => {
         setName(event.target.value)
     }
 
-    const handleEmailBlur = (event) => {
-        setEmail(event.target.value)
-    }
-
     const handleAddressBlur = (event) => {
-        setPassword(event.target.value)
+        setAddress(event.target.value)
     }
 
     const handlePhoneNumberBlur = (event) => {
-        setConfirmPassword(event.target.value)
+        setPhoneNumber(event.target.value)
     }
 
-    //if user created 
 
-    if (user) {
-        navigate('/shop')
-    }
+
 
     const handleCreateUser = (event) => {
         event.preventDefault();
-
+        const shipping = { name, phoneNumber, address }
+        console.log(shipping)
     }
 
 
@@ -59,7 +53,7 @@ const Shipment = () => {
 
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
-                        <input onBlur={handleEmailBlur} type="email" name="email" id="" required />
+                        <input value={user?.email} readOnly type="email" name="email" id="" required />
                     </div>
 
                     <div className="input-group">
